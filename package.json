@@ -12,5 +12,7 @@
     "keywords": [],
     "author": "",
     "license": "ISC",
-    "devDependencies": {}
+    "devDependencies": {
+        "prettier": "^3.6.2"
+    }
 }
