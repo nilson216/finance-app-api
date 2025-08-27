@@ -1,25 +1,27 @@
 import "dotenv/config.js";
 import express from 'express';
+
 import { PostgresHelper } from './src/db/postgres/helper.js';
 
 
 const app = express();
 
-
 app.use(express.json());
 
 
-app.get('/', async (req, res) => {
-  try {
-    const users = await PostgresHelper.query('SELECT * FROM users;');
-    res.json(users); 
-  } catch (err) {
-    console.error('Erro no servidor:', err);
-    res.status(500).send('Erro no servidor');
-  }
+
+app.get('/api/users', async (req, res) => {
+    const results = await PostgresHelper.query('SELECT * FROM users;');
+    res.send(JSON.stringify(results));
+});
+
+app.post('/api/users', async (req, res) => {
+  console.log(req.body);
+  console.log(req.headers);
+  return res.status(201).json('User created')
 });
 
 
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
+app.listen(process.env.PORT, () => {
+  console.log('Server is running on port 8080');
 });
