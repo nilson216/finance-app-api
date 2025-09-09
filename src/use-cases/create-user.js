@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
 import { PostgresCreateUserRepository } from '../repository/postgres/create-user.js';
 import { PostgresGetUserByEmailRepository } from '../repository/postgres/get-user-by-email.js';
+import {EmailAlreadyInUseError} from '../errors/user.js'
 
 export class CreateUserUseCase {
     async execute(createdUserParams){
@@ -13,7 +14,7 @@ export class CreateUserUseCase {
         )
         // se repetir parece
         if (userWithProvidedEmail){
-            throw new Error('The provided is alredy in use.')
+            throw new EmailAlreadyInUseError(createdUserParams.email)
         }
         //gerar ID do usuario
         const userId = uuidv4();
