@@ -1,4 +1,4 @@
-import { UpdateUserCase } from '../use-cases/update-user.js'
+import { UpdateUserCase } from '../use-cases/index.js'
 import { invalidPasswordResponse, emailIsAlreadyInUseResponse, checkIfEmailIsValid,ok,checkIfIdIsValid,checkIfPasswordIsValid, badRequest, created, serverError,} from './helpers/index.js'
 
 export class UpdateUserController {
