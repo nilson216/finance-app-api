@@ -1,6 +1,6 @@
 
 import { GetUserByIdUseCase } from "../use-cases/get-user-by-id.js"
-import { invalidPasswordResponse, invalidIdResponse, emailIsAlreadyInUseResponse, ok,checkIfIdIsValid, checkIfEmailIsValid, checkIfPasswordIsValid, badRequest, created, serverError,} from './helpers/index.js'
+import { invalidPasswordResponse, invalidIdResponse, emailIsAlreadyInUseResponse, ok,checkIfIdIsValid, userNotFoundResponse, checkIfEmailIsValid, checkIfPasswordIsValid, badRequest, created, serverError,} from './helpers/index.js'
 
 
 export class GetUserByIdController {
@@ -17,9 +17,7 @@ export class GetUserByIdController {
         )
 
         if(!user){
-          return notFound({
-            message: 'User not found',
-          })
+          return userNotFoundResponse()
         }
 
         return ok(user)
