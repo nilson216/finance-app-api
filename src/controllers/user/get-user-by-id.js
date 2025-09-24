@@ -1,18 +1,10 @@
-import { PostgresGetUserByIdRepository } from '../repository/postgres/user/get-user-by-id.js';
-import { GetUserByIdUseCase } from '../use-cases/user/get-user-by-id.js';
 import {
-    invalidPasswordResponse,
     invalidIdResponse,
-    emailIsAlreadyInUseResponse,
     ok,
     checkIfIdIsValid,
     userNotFoundResponse,
-    checkIfEmailIsValid,
-    checkIfPasswordIsValid,
-    badRequest,
-    created,
     serverError,
-} from './helpers/index.js';
+} from '../helpers/index.js';
 
 export class GetUserByIdController {
     constructor(getUserByIdUseCase) {

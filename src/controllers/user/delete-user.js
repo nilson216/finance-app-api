@@ -1,5 +1,5 @@
 
-import { serverError, checkIfIdIsValid, invalidIdResponse, ok, userNotFoundResponse} from './helpers/index.js'
+import { serverError, checkIfIdIsValid, invalidIdResponse, ok, userNotFoundResponse} from '../helpers/index.js'
 
 export class DeleteUserController {
     constructor(deleteUserUseCase){
