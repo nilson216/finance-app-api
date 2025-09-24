@@ -1,4 +1,4 @@
-import { PostgresHelper } from '../../db/helper.js'
+import { PostgresHelper } from '../../../db/helper.js'
 
 // Classe responsável por atualizar um usuário no banco de dados
 export class PostgresUpdateUserRepository {

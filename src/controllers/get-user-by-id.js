@@ -1,5 +1,5 @@
 
-import { PostgresGetUserByIdRepository } from "../repository/postgres/get-user-by-id.js"
+import { PostgresGetUserByIdRepository } from "../repository/postgres/user/get-user-by-id.js"
 import { GetUserByIdUseCase } from "../use-cases/get-user-by-id.js"
 import { invalidPasswordResponse, invalidIdResponse, emailIsAlreadyInUseResponse, ok,checkIfIdIsValid, userNotFoundResponse, checkIfEmailIsValid, checkIfPasswordIsValid, badRequest, created, serverError,} from './helpers/index.js'
 
