@@ -5,6 +5,7 @@ import {
     invalidIdResponse,
     checkIfIdIsValid,
     created,
+    validateRequiredFields,
 } from '../helpers/index.js';
 
 export class CreateTransactionController {
@@ -23,11 +24,11 @@ export class CreateTransactionController {
                 'type',
             ];
 
-            for (const field of requiredFields) {
-                if (!params[field] || params[field].toString().trim().length === 0) {
-                    return badRequest({ message: `Missing param: ${field}` });
-                }
-            }
+             const { ok: requiredFieldsWereProvided, missingField} = validateRequiredFields(params, requiredFields)
+
+          if (!requiredFieldsWereProvided){
+                return badRequest({message: `The field ${missingField} is required.`})
+          }
 
             const userIdIsValid = checkIfIdIsValid(params.user_id);
 
@@ -56,13 +57,13 @@ export class CreateTransactionController {
             }
             const type = params.type.trim().toUpperCase();
 
-            const typeIsValid = ['EARNING', 'EXPENSE', 'INVESTIMENT'].includes(
+            const typeIsValid = ['EARNINGS', 'EXPENSE', 'INVESTIMENT'].includes(
                 type,
             );
             if (!typeIsValid) {
                 return badRequest({
                     message:
-                        'Type must be one of the following: EARNING, EXPENSE, INVESTIMENT',
+                        'Type must be one of the following: EARNINGS, EXPENSE, INVESTIMENT',
                 });
             }
 
