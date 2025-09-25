@@ -7,6 +7,8 @@ import {
     created,
     validateRequiredFields,
     requiredFieldIsMissingResponse,
+    checkIfAmountIsValid,
+    checkIfTypeIsValid,
 } from '../helpers/index.js';
 
 export class CreateTransactionController {
@@ -37,14 +39,7 @@ export class CreateTransactionController {
                 return invalidIdResponse();
             }
 
-            const amountIsValid = validator.isCurrency(
-                params.amount.toString(),
-                {
-                    digits_after_decimal: [2],
-                    allow_negatives: false,
-                    decimal_separator: '.',
-                },
-            );
+            const amountIsValid = checkIfAmountIsValid(params.amount);
 
             if (!amountIsValid) {
                 return badRequest({
@@ -53,9 +48,8 @@ export class CreateTransactionController {
             }
             const type = params.type.trim().toUpperCase();
 
-            const typeIsValid = ['EARNINGS', 'EXPENSE', 'INVESTIMENT'].includes(
-                type,
-            );
+            const typeIsValid = checkIfTypeIsValid(type)
+
             if (!typeIsValid) {
                 return badRequest({
                     message:
