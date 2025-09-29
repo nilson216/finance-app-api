@@ -2,8 +2,11 @@ import validator from 'validator'
 import { badRequest } from './http.js'
 
 export const checkIfAmountIsValid = (amount) => {
+      if (amount === undefined || amount === null) {
+    return false
+  }
     return validator.isCurrency(
-                    amount.amount.toString(),
+                    amount.toString(),
                     {
                         digits_after_decimal: [2],
                         allow_negatives: false,
@@ -15,20 +18,20 @@ export const checkIfAmountIsValid = (amount) => {
 
 
 export const checkIfTypeIsValid = (type) => {// sem chaves e um return direto
-  ['EARNINGS', 'EXPENSE', 'INVESTIMENT'].includes(
+  return ['EARNING', 'EXPENSE', 'INVESTIMENT'].includes(
                 type,
 )
 }
 export const invalidAmountResponse = () => {
-    badRequest({
+   return badRequest({
         message: 'Amount must be a valid currency format',
     })
 }
 
     export const invalidTypeResponse = () => {
-        badRequest({
+      return  badRequest({
                     message:
-                        'Type must be one of the following: EARNINGS, EXPENSE, INVESTIMENT',
+                        'Type must be one of the following: EARNING, EXPENSE, INVESTIMENT',
                 });
             }
 

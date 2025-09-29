@@ -1,7 +1,7 @@
 
 import { validate } from 'uuid'
 import {EmailAlreadyInUseError} from '../../errors/user.js '
-import { invalidPasswordResponse, emailIsAlreadyInUseResponse, checkIfEmailIsValid, checkIfPasswordIsValid, badRequest, created, serverError,} from '../helpers/index.js'
+import { invalidPasswordResponse, emailIsAlreadyInUseResponse, checkIfEmailIsValid, checkIfPasswordIsValid, badRequest, created, serverError, validateRequiredFields,} from '../helpers/index.js'
 
 export class CreateUserController {
     constructor(createUserUseCase){
@@ -18,7 +18,7 @@ export class CreateUserController {
                 'password',
             ]
 
-            const { ok: requiredFieldsWereProvided, missingField} = validatedRequiredFields(params, requiredFields)
+            const { ok: requiredFieldsWereProvided, missingField} = validateRequiredFields(params, requiredFields)
 
           if (!requiredFieldsWereProvided){
                return requiredFieldIsMissingResponse(missingField)
