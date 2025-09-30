@@ -31,3 +31,4 @@ export class PostgresUpdateTransactionRepository {
                 // Retorna o usuário atualizado (primeira linha do resultado)
                 return updateUser[0]
 }
+}
