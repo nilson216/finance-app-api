@@ -1,5 +1,5 @@
 export class PostgresUpdateTransactionRepository {
-    async execute (userId, updateTransactionParams) {
+    async execute (transactionId, updateTransactionParams) {
                const updateFields = [] // exemplo final: ["first_name = $1", "last_name = $2"]
                const updateValues = [] // exemplo final: ["Nilson", "Hoffmann"]
                
@@ -11,8 +11,8 @@ export class PostgresUpdateTransactionRepository {
                     updateValues.push(updateTransactionParams[key])
                 })
         
-                // No final, adiciona o userId para usar no WHERE
-                updateValues.push(userId)
+                // No final, adiciona o transactionId para usar no WHERE
+                updateValues.push(transactionId)
         
                 // Monta a query dinamicamente
                 const updateQuery = `
