@@ -2,11 +2,11 @@ import { badRequest, checkIfAmountIsValid, checkIfIdIsValid, checkIfTypeIsValid,
 
 export class UpdateTransactionController {
     constructor(updateTransactionUseCase){
-this
+this.updateTransactionUseCase = updateTransactionUseCase
     }
     async execute(httpRequest){
        try{
-          const idIsValid = checkIfIdIsValid(httpRequest.params.trasactionId)
+          const idIsValid = checkIfIdIsValid(httpRequest.params.transactionId)
           if(!idIsValid){
             return invalidIdResponse()
           }

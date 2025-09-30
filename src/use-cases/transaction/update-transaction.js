@@ -6,7 +6,7 @@ export class UpdateTransactionUseCase {
        
     }
 
-    async execute (transactionId, params) {
+    async execute(transactionId, params) {
         const transaction = await this.updateTransactionRepository.execute(transactionId,params)
         return transaction
     }

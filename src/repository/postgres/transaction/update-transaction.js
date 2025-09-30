@@ -1,3 +1,5 @@
+import { PostgresHelper } from "../../../db/helper.js"
+
 export class PostgresUpdateTransactionRepository {
     async execute (transactionId, updateTransactionParams) {
                const updateFields = [] // exemplo final: ["first_name = $1", "last_name = $2"]
@@ -16,7 +18,7 @@ export class PostgresUpdateTransactionRepository {
         
                 // Monta a query dinamicamente
                 const updateQuery = `
-                    UPDATE trasactions 
+                    UPDATE transactions 
                     SET ${updateFields.join(', ')} 
                     WHERE id = $${updateValues.length} 
                     RETURNING *
