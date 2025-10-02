@@ -1,5 +1,5 @@
-import { UserNotFoundError } from "../../errors/user";
-import { checkIfIdIsValid, invalidIdResponse } from "../helpers";
+import { UserNotFoundError } from "../../errors/user.js";
+import { checkIfIdIsValid, invalidIdResponse, ok, userNotFoundResponse } from "../helpers/index.js";
 
 export class GetUserBalanceController {
     constructor(getUserBalanceUseCase){
@@ -22,7 +22,7 @@ export class GetUserBalanceController {
 
         } catch (error) {
             if(error instanceof UserNotFoundError) {
-                return userNotFoundResponse
+                return userNotFoundResponse()
             }
             console.error(error)
             return serverError();

@@ -1,5 +1,5 @@
 import validator from 'validator';
-import { badRequest, notFound } from './http.js';
+import { badRequest, notFound } from './index.js';
 
 export const checkIfAmountIsValid = (amount) => {
     if (typeof amount !== 'number') {
