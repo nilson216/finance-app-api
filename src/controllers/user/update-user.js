@@ -1,6 +1,6 @@
 import { ZodError } from 'zod';
 import { updateUserSchema } from '../../schemas/user.js';
-import { ok,checkIfIdIsValid,badRequest, serverError,} from '../helpers/index.js'
+import { ok,checkIfIdIsValid,badRequest, serverError, invalidIdResponse,} from '../helpers/index.js'
 import { EmailAlreadyInUseError } from '../../errors/user.js';
 
 
