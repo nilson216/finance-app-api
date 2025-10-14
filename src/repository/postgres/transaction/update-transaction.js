@@ -10,11 +10,9 @@ export class PostgresUpdateTransactionRepository {
             throw new Error(`Transaction with id ${transactionId} not found`);
         }
 
-        const updatedTransaction = await prisma.transaction.update({
+        return await prisma.transaction.update({
             where: { id: transactionId },
             data: updateTransactionParams,
         });
-
-        return updatedTransaction;
     }
 }
