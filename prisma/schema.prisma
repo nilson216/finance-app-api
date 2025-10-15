@@ -38,3 +38,7 @@ enum TransactionType {
   EXPENSE
   INVESTMENT
 }
+//Verificar document prisma pra usar prisma com banco de dados ja criado e com dados
+//npx prisma pull atualizar schemado banco sem perder dados para prisma
+//utilizar comando mkdir -p prisma/migrations/0_init pra comparar migrations do banco e utilizar no prisma
+//migrate prisma dif--fromempty--to schema --datemodel prisma/schema.prisma --script > prisma  ... 
