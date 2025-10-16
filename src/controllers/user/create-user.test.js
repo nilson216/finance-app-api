@@ -102,4 +102,25 @@ describe('Create user Controller', () => {
         //assert
         expect(result.statusCode).toBe(400)
     })
+
+
+     it('should return 400 if password is less than  characters ', async () => {
+        //arrange
+        const createUserUseCase = new CreateUserUseCaseStub()
+        const createUserController = new CreateUserController(createUserUseCase)
+        //act
+        const httpRequest = {
+            body: {
+                // if there is no return status 400 error or Bad Request
+                first_name: 'Nilson',
+                last_name: 'Neto',
+                email:'nilson@gmail.com',
+                password: '12345'        
+            },
+        }
+
+        const result = await createUserController.execute(httpRequest)
+        //assert
+        expect(result.statusCode).toBe(400)
+    })
 })
