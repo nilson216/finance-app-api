@@ -1,4 +1,5 @@
 import {CreateUserController} from "./create-user.js"
+import {faker} from '@faker-js/faker'
 
 describe('Create user Controller', () => {
     class CreateUserUseCaseStub {
@@ -14,10 +15,10 @@ describe('Create user Controller', () => {
 
         const httpRequest= {
             body: {
-                first_name: 'Nilson', // If for inserted first_name return status 201 ok
-                last_name: 'Neto',
-                email: 'nilson@gmail.com',
-                password: '1234567'
+                first_name: faker.person.firstName(), // If for inserted first_name return status 201 ok
+                last_name: faker.person.lastName(),
+                email:  faker.internet.email(),
+                password: faker.internet.password()
             },
         }
 
@@ -35,9 +36,11 @@ describe('Create user Controller', () => {
         const httpRequest = {
             body: {
                 // if there is no return status 400 error or Bad Request
-                last_name: 'Neto',
-                email:'nilson@gmail.com',
-                password: '1234567'
+                last_name: faker.person.lastName(),
+                email: faker.internet.email(),
+                password: faker.internet.password({
+                    length: 7
+                })
             },
         }
 
@@ -54,9 +57,11 @@ describe('Create user Controller', () => {
         const httpRequest = {
             body: {
                 // if there is no return status 400 error or Bad Request
-                first_name: 'Nilson',
-                email:'nilson@gmail.com',
-                password: '1234567'
+                first_name: faker.person.firstName(),
+                email: faker.internet.email(),
+                password: faker.internet.password({
+                    length: 7
+                })
             },
         }
 
@@ -73,9 +78,9 @@ describe('Create user Controller', () => {
         const httpRequest = {
             body: {
                 // if there is no return status 400 error or Bad Request
-                first_name: 'Nilson',
-                last_name:'Neto',
-                password: '1234567'
+                first_name: faker.person.firstName(),
+                last_name:faker.person.lastName(),
+                password: faker.internet.password()
             },
         }
 
@@ -92,9 +97,9 @@ describe('Create user Controller', () => {
         const httpRequest = {
             body: {
                 // if there is no return status 400 error or Bad Request
-                first_name: 'Nilson',
-                last_name: 'Neto',
-                email:'nilson@gmail.com'         
+                first_name: faker.person.firstName(),
+                last_name: faker.person.lastName(),
+                email: faker.internet.email()         
             },
         }
 
@@ -112,10 +117,12 @@ describe('Create user Controller', () => {
         const httpRequest = {
             body: {
                
-                first_name: 'Nilson',
-                last_name: 'Neto',
-                email:'nilson@gmail.com',
-                password: '12345'        
+                first_name: faker.person.firstName(),
+                last_name: faker.person.lastName(),
+                email: faker.internet.email(),
+                password: faker.internet.password({
+                    length: 7
+                })        
             },
         }
 
@@ -131,10 +138,10 @@ describe('Create user Controller', () => {
         const httpRequest = {
             body: {
               
-                first_name: 'Nilson',
-                last_name: 'Neto',
-                email:'nilson@gmail.com',
-                password: '1234567'        
+                first_name: faker.person.firstName(),
+                last_name: faker.person.lastName(),
+                email: faker.internet.email(),
+                password: faker.internet.password()        
             },
         }
         const executeSpy = jest.spy0n(createUserUseCase, 'execute')
