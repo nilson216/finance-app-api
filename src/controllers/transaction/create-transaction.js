@@ -21,11 +21,10 @@ export class CreateTransactionController {
             )
             return created(transaction);
         } catch (error) {
-            if ( error instanceof ZodError) {
-                            return badRequest({
-                                message: error.errors[0].message,
-                            })
-                        }
+            if (error instanceof ZodError) {
+                    const firstError = error.errors?.[0]?.message || 'Invalid input';
+                    return badRequest({ message: firstError });
+                }
             console.error(error);
             return serverError();
         }
