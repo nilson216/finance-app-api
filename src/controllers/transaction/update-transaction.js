@@ -45,6 +45,7 @@ if(params.type){
 const transaction = await this.updateTransactionUseCase.execute(httpRequest.params.transactionId,params)
 return ok(transaction)
        } catch(error){
+        
         console.error(error)
         return serverError()
        }
