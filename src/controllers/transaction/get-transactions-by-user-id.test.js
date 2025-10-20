@@ -28,5 +28,12 @@ describe('Get Transaction By user ID COntrollers', () => {
         })
         expect(response.statusCode).toBe(200)
     })
+    it('should return 400 when missing userid throws', async () => {
+        const { sut } = makeSut()
+        const response = await sut.execute({
+            query: { userId: 'invalid_id' },
+        })
+        expect(response.statusCode).toBe(400)
+    })
 
   })
