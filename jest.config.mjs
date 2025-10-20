@@ -1,13 +1,15 @@
-/**
- * For a detailed explanation regarding each configuration property, visit:
- * https://jestjs.io/docs/configuration
- */
-
 /** @type {import('jest').Config} */
 const config = {
-  coverageDirectory: "coverage",
-  coverageProvider: "v8",
-  
+  testEnvironment: 'node',
+  transform: {
+    '^.+\\.js$': 'babel-jest', // transpila seus arquivos e dependências ESM
+  },
+  transformIgnorePatterns: [
+    '/node_modules/(?!@faker-js/faker)' // transpila faker também
+  ],
+  testMatch: ['**/?(*.)+(spec|test).js'],
+  coverageDirectory: 'coverage',
+  coverageProvider: 'v8',
 };
 
 export default config;
