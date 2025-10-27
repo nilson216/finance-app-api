@@ -1,29 +1,43 @@
-import { checkIfIdIsValid, invalidIdResponse, ok, serverError, transactionNotFoundResponse } from "../helpers/index.js"
-
+import { TransactionNotFoundError } from '../../errors/transaction.js'
+import {
+    checkIfIdIsValid,
+    invalidIdResponse,
+    ok,
+    serverError,
+    transactionNotFoundResponse,
+} from '../helpers/index.js'
 
 export class DeleteTransactionController {
-    constructor(deleteTransactionUseCase){
+    constructor(deleteTransactionUseCase) {
         this.deleteTransactionUseCase = deleteTransactionUseCase
     }
-    async execute(httpRequest){
-        try{
-           const idIsValid = checkIfIdIsValid(httpRequest.params.transactionId)
 
-           if(!idIsValid){
-            return invalidIdResponse()
-           }
-           const deletedTransaction = await this.deleteTransactionUseCase.execute(
-            httpRequest.params.transactionId
-           )
-           
-           if(!deletedTransaction){
-            return transactionNotFoundResponse()
-           }
-           
-           return ok(deletedTransaction)
+    async execute(httpRequest) {
+        try {
+            const transactionId = httpRequest.params.transactionId
+            const userId = httpRequest.params.user_id
 
-        }catch (error) {
+            const transactionIdIsValid = checkIfIdIsValid(transactionId)
+            const userIdIsValid = checkIfIdIsValid(userId)
+
+            if (!transactionIdIsValid || !userIdIsValid) {
+                return invalidIdResponse()
+            }
+
+            const deletedTransaction =
+                await this.deleteTransactionUseCase.execute(
+                    transactionId,
+                    userId,
+                )
+
+            return ok(deletedTransaction)
+        } catch (error) {
+            if (error instanceof TransactionNotFoundError) {
+                return transactionNotFoundResponse()
+            }
+
             console.error(error)
+
             return serverError()
         }
     }
