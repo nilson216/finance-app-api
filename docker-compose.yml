@@ -1,12 +1,25 @@
+
+version: '3'
+
 services:
-  financeapp-postgres:
-    image: postgres:15
-    container_name: financeapp-postgres
-    environment:
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=finance_app
-    ports:
-      - "5432:5432"
-    volumes:
-      - ./.postgres-data:/var/lib/postgresql/data
+    postgres:
+        image: postgres
+        container_name: financeapp-postgres
+        environment:
+            POSTGRES_PASSWORD: password
+            POSTGRES_USER: postgres
+            POSTGRES_DB: finance-app
+        ports:
+            - '5432:5432'
+        volumes:
+            - ./.postgres-data:/var/lib/postgresql/data
+
+    postgres-test:
+        image: postgres
+        container_name: financeapp-postgres-test
+        environment:
+            POSTGRES_PASSWORD: password
+            POSTGRES_USER: postgres
+            POSTGRES_DB: finance-app
+        ports:
+            - '5433:5432'
