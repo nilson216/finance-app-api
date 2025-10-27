@@ -1,31 +1,46 @@
-import { UserNotFoundError } from "../../errors/user.js";
-import { checkIfIdIsValid, invalidIdResponse, ok, serverError, userNotFoundResponse } from "../helpers/index.js";
+import { ZodError } from 'zod'
+import { UserNotFoundError } from '../../errors/user.js'
+import { getUserBalanceSchema } from '../../schemas/user.js'
+import {
+    serverError,
+    userNotFoundResponse,
+    ok,
+    badRequest,
+} from '../helpers/index.js'
 
 export class GetUserBalanceController {
-    constructor(getUserBalanceUseCase){
-       this.getUserBalanceUseCase = getUserBalanceUseCase
+    constructor(getUserBalanceUseCase) {
+        this.getUserBalanceUseCase = getUserBalanceUseCase
     }
 
-    async execute(httpRequest){
-        try{
+    async execute(httpRequest) {
+        try {
             const userId = httpRequest.params.userId
-            const idIsValid = checkIfIdIsValid(userId);
-            if(!idIsValid){
-                return invalidIdResponse()
-            }
+            const from = httpRequest.query.from
+            const to = httpRequest.query.to
 
-            const balance = await this.getUserBalanceUseCase.execute({ 
-                userId
-            })
+            await getUserBalanceSchema.parseAsync({ user_id: userId, from, to })
+
+            const balance = await this.getUserBalanceUseCase.execute(
+                userId,
+                from,
+                to,
+            )
 
             return ok(balance)
-
         } catch (error) {
-            if(error instanceof UserNotFoundError) {
+            console.error(error)
+
+            if (error instanceof UserNotFoundError) {
                 return userNotFoundResponse()
             }
-            console.error(error)
-            return serverError();
+            if (error instanceof ZodError) {
+                return badRequest({
+                    message: error.errors[0].message,
+                })
+            }
+
+            return serverError()
         }
     }
 }
