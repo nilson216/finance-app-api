@@ -7,7 +7,7 @@
 const config = {
     coverageDirectory: 'coverage',
     coverageProvider: 'v8',
-    collectCoverageFrom: ['src/**/*.js'],
+    collectCoverageFrom: ['src/**/*.js'], // ver todos arquivos que serao coletados para coverage
     globalSetup: '<rootDir>/jest.global-setup.js',
     setupFilesAfterEnv: ['<rootDir>/jest.setup-after-env.js'],
       watchPathIgnorePatterns: ['<rootDir>/.postgres-data'],
