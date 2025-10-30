@@ -1,46 +1,82 @@
-import { Prisma } from '@prisma/client';
-import { prisma } from '../../../../prisma/prisma.js';
+import { Prisma, TransactionType } from '@prisma/client'
+import { prisma } from '../../../../prisma/prisma.js'
 
 export class PostgresGetUserBalanceRepository {
-    async execute(userId) {
-        
-        const { _sum: { amount: totalExpenses } = { amount: 0 } } = await prisma.transaction.aggregate({
+    async execute(userId, from, to) {
+        const dateFilter = {
+            date: {
+                gte: new Date(from),
+                lte: new Date(to),
+            },
+        }
+        const {
+            _sum: { amount: totalExpenses },
+        } = await prisma.transaction.aggregate({
             where: {
                 user_id: userId,
-                type: 'EXPENSE',
+                type: TransactionType.EXPENSE,
+                ...dateFilter,
             },
-            _sum: { amount: true },
-        });
+            _sum: {
+                amount: true,
+            },
+        })
 
-       
-        const { _sum: { amount: totalEarnings } = { amount: 0 } } = await prisma.transaction.aggregate({
+        const {
+            _sum: { amount: totalEarnings },
+        } = await prisma.transaction.aggregate({
             where: {
                 user_id: userId,
-                type: 'EARNING',
+                type: TransactionType.EARNING,
+                ...dateFilter,
             },
-            _sum: { amount: true },
-        });
+            _sum: {
+                amount: true,
+            },
+        })
 
-       
-        const { _sum: { amount: totalInvestments } = { amount: 0 } } = await prisma.transaction.aggregate({
+        const {
+            _sum: { amount: totalInvestments },
+        } = await prisma.transaction.aggregate({
             where: {
                 user_id: userId,
-                type: 'INVESTMENT',
+                type: TransactionType.INVESTMENT,
+                ...dateFilter,
             },
-            _sum: { amount: true },
-        });
+            _sum: {
+                amount: true,
+            },
+        })
 
-     
-        const earnings = totalEarnings || new Prisma.Decimal(0);
-        const expenses = totalExpenses || new Prisma.Decimal(0);
-        const investments = totalInvestments || new Prisma.Decimal(0);
+        const _totalEarnings = totalEarnings || new Prisma.Decimal(0)
+        const _totalExpenses = totalExpenses || new Prisma.Decimal(0)
+        const _totalInvestments = totalInvestments || new Prisma.Decimal(0)
 
-        const balance = earnings.sub(expenses).sub(investments);
+        const total = _totalEarnings
+            .plus(_totalExpenses)
+            .plus(_totalInvestments)
+
+        const balance = _totalEarnings
+            .minus(_totalExpenses)
+            .minus(_totalInvestments)
+
+        const earningsPercentage = total.isZero()
+            ? 0
+            : _totalEarnings.div(total).times(100).floor()
+        const expensesPercentage = total.isZero()
+            ? 0
+            : _totalExpenses.div(total).times(100).floor()
+        const investmentsPercentage = total.isZero()
+            ? 0
+            : _totalInvestments.div(total).times(100).floor()
 
         return {
-            earnings: totalEarnings,
-            expenses: totalExpenses,
-            investments: totalInvestments,
+            earnings: _totalEarnings,
+            expenses: _totalExpenses,
+            investments: _totalInvestments,
+            earningsPercentage,
+            expensesPercentage,
+            investmentsPercentage,
             balance,
         }
     }
