@@ -1,4 +1,4 @@
-import { prisma } from '../../../../prisma/prisma.js'
+import { prisma } from '../../../../prisma/prisma.js';
 
 export class PostgresGetTransactionsByUserIdRepository {
     async execute(userId, from, to) {
@@ -10,6 +10,6 @@ export class PostgresGetTransactionsByUserIdRepository {
                     lte: new Date(to),
                 },
             },
-        })
+        });
     }
 }

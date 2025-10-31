@@ -1,10 +1,10 @@
-import { IdGeneratorAdapter } from '../../adapters/index.js'
+import { IdGeneratorAdapter } from '../../adapters/index.js';
 import {
     CreateTransactionController,
     GetTransactionsByUserIdController,
     UpdateTransactionController,
     DeleteTransactionController,
-} from '../../controllers/index.js'
+} from '../../controllers/index.js';
 import {
     PostgresCreateTransactionRepository,
     PostgresGetUserByIdRepository,
@@ -12,82 +12,83 @@ import {
     PostgresUpdateTransactionRepository,
     PostgresDeleteTransactionRepository,
     PostgresGetTransactionByIdRepository,
-} from '../../repository/postgres/index.js'
+} from '../../repository/postgres/index.js';
 import {
     CreateTransactionUseCase,
     GetTransactionsByUserIdUseCase,
     UpdateTransactionUseCase,
     DeleteTransactionUseCase,
-} from '../../use-cases/index.js'
+} from '../../use-cases/index.js';
 
 export const makeCreateTransactionController = () => {
     const createTransactionRepository =
-        new PostgresCreateTransactionRepository()
+        new PostgresCreateTransactionRepository();
 
-    const getUserByIdRepository = new PostgresGetUserByIdRepository()
-    const idGeneratorAdapter = new IdGeneratorAdapter()
+    const getUserByIdRepository = new PostgresGetUserByIdRepository();
+    const idGeneratorAdapter = new IdGeneratorAdapter();
 
     const createTransactionUseCase = new CreateTransactionUseCase(
         createTransactionRepository,
         getUserByIdRepository,
         idGeneratorAdapter,
-    )
+    );
 
     const createTransactionController = new CreateTransactionController(
         createTransactionUseCase,
-    )
+    );
 
-    return createTransactionController
-}
+    return createTransactionController;
+};
 
 export const makeGetTransactionsByUserIdController = () => {
     const getTransactionsByUserIdRepository =
-        new PostgresGetTransactionsByUserIdRepository()
+        new PostgresGetTransactionsByUserIdRepository();
 
-    const getUserByIdRepository = new PostgresGetUserByIdRepository()
+    const getUserByIdRepository = new PostgresGetUserByIdRepository();
 
     const getTransactionsByUserIdUseCase = new GetTransactionsByUserIdUseCase(
         getTransactionsByUserIdRepository,
         getUserByIdRepository,
-    )
+    );
 
     const getTransactionsByUserIdController =
-        new GetTransactionsByUserIdController(getTransactionsByUserIdUseCase)
+        new GetTransactionsByUserIdController(getTransactionsByUserIdUseCase);
 
-    return getTransactionsByUserIdController
-}
+    return getTransactionsByUserIdController;
+};
 
 export const makeUpdateTransactionController = () => {
-    const updateTrasactionRepository = new PostgresUpdateTransactionRepository()
+    const updateTrasactionRepository =
+        new PostgresUpdateTransactionRepository();
     const getTransactionByIdRepository =
-        new PostgresGetTransactionByIdRepository()
+        new PostgresGetTransactionByIdRepository();
 
     const updateTransactionUseCase = new UpdateTransactionUseCase(
         updateTrasactionRepository,
         getTransactionByIdRepository,
-    )
+    );
 
     const updateTransactionController = new UpdateTransactionController(
         updateTransactionUseCase,
-    )
+    );
 
-    return updateTransactionController
-}
+    return updateTransactionController;
+};
 
 export const makeDeleteTransactionController = () => {
     const deleteTransactionRepository =
-        new PostgresDeleteTransactionRepository()
+        new PostgresDeleteTransactionRepository();
     const getTransactionByIdRepository =
-        new PostgresGetTransactionByIdRepository()
+        new PostgresGetTransactionByIdRepository();
 
     const deleteTransactionUseCase = new DeleteTransactionUseCase(
         deleteTransactionRepository,
         getTransactionByIdRepository,
-    )
+    );
 
     const deleteTransactionController = new DeleteTransactionController(
         deleteTransactionUseCase,
-    )
+    );
 
-    return deleteTransactionController
-}
+    return deleteTransactionController;
+};

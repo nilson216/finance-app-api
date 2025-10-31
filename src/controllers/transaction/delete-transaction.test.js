@@ -1,24 +1,24 @@
-import { TransactionNotFoundError } from '../../errors'
-import { transaction } from '../../tests/index.js'
-import { DeleteTransactionController } from './delete-transaction'
-import { faker } from '@faker-js/faker'
+import { TransactionNotFoundError } from '../../errors';
+import { transaction } from '../../tests/index.js';
+import { DeleteTransactionController } from './delete-transaction';
+import { faker } from '@faker-js/faker';
 
 describe('Delete Transaction Controller', () => {
     class DeleteTransactionUseCaseStub {
         async execute() {
-            return transaction
+            return transaction;
         }
     }
 
     const makeSut = () => {
-        const deleteTransactionUseCase = new DeleteTransactionUseCaseStub()
-        const sut = new DeleteTransactionController(deleteTransactionUseCase)
+        const deleteTransactionUseCase = new DeleteTransactionUseCaseStub();
+        const sut = new DeleteTransactionController(deleteTransactionUseCase);
 
-        return { sut, deleteTransactionUseCase }
-    }
+        return { sut, deleteTransactionUseCase };
+    };
     it('should return 200 when deleting a transaction successfully', async () => {
         // arrange
-        const { sut } = makeSut()
+        const { sut } = makeSut();
 
         // act
         const response = await sut.execute({
@@ -26,15 +26,15 @@ describe('Delete Transaction Controller', () => {
                 transactionId: faker.string.uuid(),
                 user_id: faker.string.uuid(),
             },
-        })
+        });
 
         // assert
-        expect(response.statusCode).toBe(200)
-    })
+        expect(response.statusCode).toBe(200);
+    });
 
     it('should return 400 when id is invalid', async () => {
         // arrange
-        const { sut } = makeSut()
+        const { sut } = makeSut();
 
         // act
         const response = await sut.execute({
@@ -42,18 +42,18 @@ describe('Delete Transaction Controller', () => {
                 transactionId: 'invalid_id',
                 user_id: faker.string.uuid(),
             },
-        })
+        });
 
         // assert
-        expect(response.statusCode).toBe(400)
-    })
+        expect(response.statusCode).toBe(400);
+    });
 
     it('should return 404 when transaction is not found', async () => {
         // arrange
-        const { sut, deleteTransactionUseCase } = makeSut()
+        const { sut, deleteTransactionUseCase } = makeSut();
         import.meta.jest
             .spyOn(deleteTransactionUseCase, 'execute')
-            .mockRejectedValueOnce(new TransactionNotFoundError())
+            .mockRejectedValueOnce(new TransactionNotFoundError());
 
         // act
         const response = await sut.execute({
@@ -61,18 +61,18 @@ describe('Delete Transaction Controller', () => {
                 transactionId: faker.string.uuid(),
                 user_id: faker.string.uuid(),
             },
-        })
+        });
 
         // assert
-        expect(response.statusCode).toBe(404)
-    })
+        expect(response.statusCode).toBe(404);
+    });
 
     it('should return 500 when DeleteTransactionUseCase throws', async () => {
         // arrange
-        const { sut, deleteTransactionUseCase } = makeSut()
+        const { sut, deleteTransactionUseCase } = makeSut();
         import.meta.jest
             .spyOn(deleteTransactionUseCase, 'execute')
-            .mockRejectedValueOnce(new Error())
+            .mockRejectedValueOnce(new Error());
 
         // act
         const response = await sut.execute({
@@ -80,21 +80,21 @@ describe('Delete Transaction Controller', () => {
                 transactionId: faker.string.uuid(),
                 user_id: faker.string.uuid(),
             },
-        })
+        });
 
         // assert
-        expect(response.statusCode).toBe(500)
-    })
+        expect(response.statusCode).toBe(500);
+    });
     it('should call DeleteTransactionUseCase with correct params', async () => {
         // arrange
-        const { sut, deleteTransactionUseCase } = makeSut()
+        const { sut, deleteTransactionUseCase } = makeSut();
         const executeSpy = import.meta.jest.spyOn(
             deleteTransactionUseCase,
             'execute',
-        )
+        );
 
-        const transactionId = faker.string.uuid()
-        const userId = faker.string.uuid()
+        const transactionId = faker.string.uuid();
+        const userId = faker.string.uuid();
 
         // act
         await sut.execute({
@@ -102,9 +102,9 @@ describe('Delete Transaction Controller', () => {
                 transactionId,
                 user_id: userId,
             },
-        })
+        });
 
         // assert
-        expect(executeSpy).toHaveBeenCalledWith(transactionId, userId)
-    })
-})
+        expect(executeSpy).toHaveBeenCalledWith(transactionId, userId);
+    });
+});

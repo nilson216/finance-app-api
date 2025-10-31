@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
 
 export class TokensGeneratorAdapter {
     execute(userId) {
@@ -13,6 +13,6 @@ export class TokensGeneratorAdapter {
                 process.env.JWT_REFRESH_TOKEN_SECRET,
                 { expiresIn: '30d' },
             ),
-        }
+        };
     }
 }

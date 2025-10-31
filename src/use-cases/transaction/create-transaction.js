@@ -1,29 +1,32 @@
-import { UserNotFoundError } from "../../errors/user.js";
-import { v4 as uuidv4 } from 'uuid';
+import { UserNotFoundError } from '../../errors/user.js';
 
 export class CreateTransactionUseCase {
-    constructor(createTransactionRepository, getUserByIdRepository){
-        this.createTransactionRepository = createTransactionRepository
-        this.getUserByIdRepository = getUserByIdRepository
+    constructor(
+        createTransactionRepository,
+        getUserByIdRepository,
+        idGeneratorAdapter,
+    ) {
+        this.createTransactionRepository = createTransactionRepository;
+        this.getUserByIdRepository = getUserByIdRepository;
+        this.idGeneratorAdapter = idGeneratorAdapter;
     }
-    async execute(createTransactionParams){
-      // Todo: validate if user exists
-      const userId = createTransactionParams.user_id
 
-      const user = await this.getUserByIdRepository.execute(userId)
+    async execute(createTransactionParams) {
+        const userId = createTransactionParams.user_id;
 
-      if(!user){
-        throw new UserNotFoundError
-      }
+        const user = await this.getUserByIdRepository.execute(userId);
 
-      const transactionId = uuidv4()
-      
-      const transaction = await this.createTransactionRepository.execute({
-        ...createTransactionParams,
-        id: transactionId
-      })
+        if (!user) {
+            throw new UserNotFoundError(userId);
+        }
 
-      return transaction
-   
+        const transactionId = this.idGeneratorAdapter.execute();
+
+        const transaction = await this.createTransactionRepository.execute({
+            ...createTransactionParams,
+            id: transactionId,
+        });
+
+        return transaction;
     }
 }

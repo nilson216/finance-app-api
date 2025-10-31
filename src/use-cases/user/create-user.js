@@ -1,35 +1,45 @@
-import { v4 as uuidv4 } from 'uuid';
-import bcrypt from 'bcrypt';
 import { EmailAlreadyInUseError } from '../../errors/user.js';
 
 export class CreateUserUseCase {
-    constructor(getUserByEmailRepository, postgresCreateUserRepository) {
+    constructor(
+        getUserByEmailRepository,
+        createUserRepository,
+        passwordHasherAdapter,
+        idGeneratorAdapter,
+        tokensGeneratorAdapter,
+    ) {
         this.getUserByEmailRepository = getUserByEmailRepository;
-        this.postgresCreateUserRepository = postgresCreateUserRepository;
+        this.createUserRepository = createUserRepository;
+        this.passwordHasherAdapter = passwordHasherAdapter;
+        this.idGeneratorAdapter = idGeneratorAdapter;
+        this.tokensGeneratorAdapter = tokensGeneratorAdapter;
     }
-    async execute(createdUserParams) {
+
+    async execute(createUserParams) {
         const userWithProvidedEmail =
-            await this.getUserByEmailRepository.execute(
-                createdUserParams.email,
-            );
+            await this.getUserByEmailRepository.execute(createUserParams.email);
 
         if (userWithProvidedEmail) {
-            throw new EmailAlreadyInUseError(createdUserParams.email);
+            throw new EmailAlreadyInUseError(createUserParams.email);
         }
 
-        const userId = uuidv4();
+        const userId = this.idGeneratorAdapter.execute();
 
-        const hashedPassword = await bcrypt.hash(
-            createdUserParams.password,
-            10,
+        const hashedPassword = await this.passwordHasherAdapter.execute(
+            createUserParams.password,
         );
 
         const user = {
-            ...createdUserParams,
+            ...createUserParams,
             id: userId,
             password: hashedPassword,
         };
 
-        return await this.postgresCreateUserRepository.execute(user);
+        const createdUser = await this.createUserRepository.execute(user);
+
+        return {
+            ...createdUser,
+            tokens: this.tokensGeneratorAdapter.execute(userId),
+        };
     }
 }

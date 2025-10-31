@@ -1,4 +1,4 @@
-import { faker } from '@faker-js/faker'
+import { faker } from '@faker-js/faker';
 
 export const transaction = {
     id: faker.string.uuid(),
@@ -7,4 +7,4 @@ export const transaction = {
     date: faker.date.anytime().toISOString(),
     type: 'EXPENSE',
     amount: Number(faker.finance.amount()),
-}
+};

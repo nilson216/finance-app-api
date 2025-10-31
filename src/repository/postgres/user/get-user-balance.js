@@ -1,5 +1,5 @@
-import { Prisma, TransactionType } from '@prisma/client'
-import { prisma } from '../../../../prisma/prisma.js'
+import { Prisma, TransactionType } from '@prisma/client';
+import { prisma } from '../../../../prisma/prisma.js';
 
 export class PostgresGetUserBalanceRepository {
     async execute(userId, from, to) {
@@ -8,7 +8,7 @@ export class PostgresGetUserBalanceRepository {
                 gte: new Date(from),
                 lte: new Date(to),
             },
-        }
+        };
         const {
             _sum: { amount: totalExpenses },
         } = await prisma.transaction.aggregate({
@@ -20,7 +20,7 @@ export class PostgresGetUserBalanceRepository {
             _sum: {
                 amount: true,
             },
-        })
+        });
 
         const {
             _sum: { amount: totalEarnings },
@@ -33,7 +33,7 @@ export class PostgresGetUserBalanceRepository {
             _sum: {
                 amount: true,
             },
-        })
+        });
 
         const {
             _sum: { amount: totalInvestments },
@@ -46,29 +46,29 @@ export class PostgresGetUserBalanceRepository {
             _sum: {
                 amount: true,
             },
-        })
+        });
 
-        const _totalEarnings = totalEarnings || new Prisma.Decimal(0)
-        const _totalExpenses = totalExpenses || new Prisma.Decimal(0)
-        const _totalInvestments = totalInvestments || new Prisma.Decimal(0)
+        const _totalEarnings = totalEarnings || new Prisma.Decimal(0);
+        const _totalExpenses = totalExpenses || new Prisma.Decimal(0);
+        const _totalInvestments = totalInvestments || new Prisma.Decimal(0);
 
         const total = _totalEarnings
             .plus(_totalExpenses)
-            .plus(_totalInvestments)
+            .plus(_totalInvestments);
 
         const balance = _totalEarnings
             .minus(_totalExpenses)
-            .minus(_totalInvestments)
+            .minus(_totalInvestments);
 
         const earningsPercentage = total.isZero()
             ? 0
-            : _totalEarnings.div(total).times(100).floor()
+            : _totalEarnings.div(total).times(100).floor();
         const expensesPercentage = total.isZero()
             ? 0
-            : _totalExpenses.div(total).times(100).floor()
+            : _totalExpenses.div(total).times(100).floor();
         const investmentsPercentage = total.isZero()
             ? 0
-            : _totalInvestments.div(total).times(100).floor()
+            : _totalInvestments.div(total).times(100).floor();
 
         return {
             earnings: _totalEarnings,
@@ -78,6 +78,6 @@ export class PostgresGetUserBalanceRepository {
             expensesPercentage,
             investmentsPercentage,
             balance,
-        }
+        };
     }
 }

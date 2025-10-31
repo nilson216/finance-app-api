@@ -1,5 +1,5 @@
-import { z } from 'zod'
-import validator from 'validator'
+import { z } from 'zod';
+import validator from 'validator';
 
 export const createTransactionSchema = z.object({
     user_id: z
@@ -44,16 +44,16 @@ export const createTransactionSchema = z.object({
                 decimal_separator: '.',
             }),
         ),
-})
+});
 
 export const updateTransactionSchema = createTransactionSchema
     .omit({
         user_id: true,
     })
-    .partial()
+    .partial();
 
 export const getTransactionsByUserIdSchema = z.object({
     user_id: z.string().uuid(),
     from: z.string().date(),
     to: z.string().date(),
-})
+});
