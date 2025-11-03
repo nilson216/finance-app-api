@@ -1,6 +1,6 @@
 import { prisma } from '../../../../prisma/prisma';
-import { PostgresGetUserByEmailRepository } from './get-user-by-email';
-import { user as fakeUser } from '../../../tests';
+import { PostgresGetUserByEmailRepository } from './get-user-by-email.js';
+import { user as fakeUser } from '../../../tests/index.js';
 
 describe('GetUserByEmailRepository', () => {
     it('should get user by email on db', async () => {

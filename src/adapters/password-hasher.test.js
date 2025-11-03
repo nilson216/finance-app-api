@@ -1,4 +1,4 @@
-import { PasswordHasherAdapter } from './password-hasher';
+import { PasswordHasherAdapter } from './password-hasher.js';
 import { faker } from '@faker-js/faker';
 
 describe('PasswordHasherAdapter', () => {

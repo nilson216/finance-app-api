@@ -1,9 +1,9 @@
 import dayjs from 'dayjs';
 import { prisma } from '../../../../prisma/prisma';
-import { transaction, user } from '../../../tests';
-import { PostgresDeleteTransactionRepository } from './delete-transaction';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-import { TransactionNotFoundError } from '../../../errors';
+import { transaction, user } from '../../../tests/index.js';
+import { PostgresDeleteTransactionRepository } from './delete-transaction.js';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library.js';
+import { TransactionNotFoundError } from '../../../errors/index.js';
 
 describe('PostgresDeleteTransactionRepository', () => {
     it('should delete a transaction on db', async () => {

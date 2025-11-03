@@ -1,7 +1,7 @@
-import { EmailAlreadyInUseError } from '../../errors/user';
-import { UpdateUserUseCase } from './update-user';
+import { EmailAlreadyInUseError } from '../../errors/index.js';
+import { UpdateUserUseCase } from './update-user.js';
 import { faker } from '@faker-js/faker';
-import { user } from '../../tests';
+import { user } from '../../tests/index.js';
 
 describe('UpdateUserUseCase', () => {
     class GetUserByEmailRepositoryStub {

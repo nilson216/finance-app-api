@@ -9,8 +9,8 @@ import {
     transactionNotFoundResponse,
     forbidden,
 } from '../helpers/index.js';
-import { TransactionNotFoundError } from '../../errors/transaction.js';
-import { ForbiddenError } from '../../errors/user.js';
+import { TransactionNotFoundError } from '../../errors/index.js';
+import { ForbiddenError } from '../../errors/index.js';
 
 export class UpdateTransactionController {
     constructor(updateTransactionUseCase) {
@@ -38,9 +38,9 @@ export class UpdateTransactionController {
             return ok(transaction);
         } catch (error) {
             if (error instanceof ZodError) {
-                return badRequest({
-                    message: error.errors[0].message,
-                });
+                const message =
+                    error.errors?.[0]?.message || 'Validation error';
+                return badRequest({ message });
             }
 
             if (error instanceof TransactionNotFoundError) {

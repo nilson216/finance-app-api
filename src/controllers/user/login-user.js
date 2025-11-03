@@ -7,7 +7,7 @@ import {
 } from '../helpers/index.js';
 import { loginSchema } from '../../schemas/index.js';
 import { ZodError } from 'zod';
-import { InvalidPasswordError, UserNotFoundError } from '../../errors/user.js';
+import { InvalidPasswordError, UserNotFoundError } from '../../errors/index.js';
 
 export class LoginUserController {
     constructor(loginUserUseCase) {
@@ -24,9 +24,9 @@ export class LoginUserController {
             return ok(user);
         } catch (error) {
             if (error instanceof ZodError) {
-                return badRequest({
-                    message: error.errors[0].message,
-                });
+                const message =
+                    error.errors?.[0]?.message || 'Validation error';
+                return badRequest({ message });
             }
 
             if (error instanceof InvalidPasswordError) {

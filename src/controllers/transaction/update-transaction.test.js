@@ -1,6 +1,6 @@
-import { TransactionNotFoundError } from '../../errors';
+import { TransactionNotFoundError } from '../../errors/index.js';
 import { transaction } from '../../tests/index.js';
-import { UpdateTransactionController } from './update-transaction';
+import { UpdateTransactionController } from './update-transaction.js';
 import { faker } from '@faker-js/faker';
 
 describe('Update Transaction Controller', () => {

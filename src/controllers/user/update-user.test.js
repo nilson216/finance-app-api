@@ -1,6 +1,9 @@
-import { EmailAlreadyInUseError, UserNotFoundError } from '../../errors/user';
+import {
+    EmailAlreadyInUseError,
+    UserNotFoundError,
+} from '../../errors/index.js';
 import { user } from '../../tests/index.js';
-import { UpdateUserController } from './update-user';
+import { UpdateUserController } from './update-user.js';
 import { faker } from '@faker-js/faker';
 
 describe('UpdateUserController', () => {

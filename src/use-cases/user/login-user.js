@@ -1,4 +1,4 @@
-import { InvalidPasswordError, UserNotFoundError } from '../../errors/user.js';
+import { InvalidPasswordError, UserNotFoundError } from '../../errors/index.js';
 
 export class LoginUserUseCase {
     constructor(

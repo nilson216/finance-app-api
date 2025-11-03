@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
-import { UpdateTransactionUseCase } from './update-transaction';
-import { transaction } from '../../tests';
+import { UpdateTransactionUseCase } from './update-transaction.js';
+import { transaction } from '../../tests/index.js';
 
 describe('UpdateTransactionUseCase', () => {
     class UpdateTransactionRepositoryStub {

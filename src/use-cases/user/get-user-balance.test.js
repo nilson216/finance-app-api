@@ -1,7 +1,7 @@
-import { UserNotFoundError } from '../../errors/user';
-import { GetUserBalanceUseCase } from './get-user-balance';
+import { UserNotFoundError } from '../../errors/index.js';
+import { GetUserBalanceUseCase } from './get-user-balance.js';
 import { faker } from '@faker-js/faker';
-import { userBalance, user } from '../../tests';
+import { userBalance, user } from '../../tests/index.js';
 
 describe('GetUserBalanceUseCase', () => {
     class GetUserBalanceRepositoryStub {

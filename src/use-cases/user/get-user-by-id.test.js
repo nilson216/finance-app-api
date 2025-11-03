@@ -1,6 +1,6 @@
-import { GetUserByIdUseCase } from './get-user-by-id';
+import { GetUserByIdUseCase } from './get-user-by-id.js';
 import { faker } from '@faker-js/faker';
-import { user } from '../../tests';
+import { user } from '../../tests/index.js';
 
 describe('GetUserByIdUseCase', () => {
     class GetUserByIdRepositoryStub {

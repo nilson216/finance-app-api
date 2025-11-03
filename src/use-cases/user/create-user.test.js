@@ -1,6 +1,6 @@
-import { EmailAlreadyInUseError } from '../../errors/user';
-import { CreateUserUseCase } from './create-user';
-import { user as fixtureUser } from '../../tests';
+import { EmailAlreadyInUseError } from '../../errors/index.js';
+import { CreateUserUseCase } from './create-user.js';
+import { user as fixtureUser } from '../../tests/index.js';
 
 describe('Create User Use Case', () => {
     const user = {

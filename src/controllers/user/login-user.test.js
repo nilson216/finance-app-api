@@ -1,6 +1,9 @@
-import { InvalidPasswordError, UserNotFoundError } from '../../errors/user';
-import { user } from '../../tests/fixtures/user';
-import { LoginUserController } from './login-user';
+import {
+    InvalidPasswordError,
+    UserNotFoundError,
+} from '../../errors/index.js';
+import { user } from '../../tests/index.js';
+import { LoginUserController } from './login-user.js';
 
 describe('LoginUserController', () => {
     const httpRequest = {

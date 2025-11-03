@@ -1,5 +1,5 @@
 import { ZodError } from 'zod';
-import { UserNotFoundError } from '../../errors/user.js';
+import { UserNotFoundError } from '../../errors/index.js';
 import { getUserBalanceSchema } from '../../schemas/user.js';
 import {
     serverError,
@@ -39,9 +39,9 @@ export class GetUserBalanceController {
                 return userNotFoundResponse();
             }
             if (error instanceof ZodError) {
-                return badRequest({
-                    message: error.errors[0].message,
-                });
+                const message =
+                    error.errors?.[0]?.message || 'Validation error';
+                return badRequest({ message });
             }
 
             return serverError();

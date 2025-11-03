@@ -1,4 +1,4 @@
-import { EmailAlreadyInUseError } from '../../errors/user.js';
+import { EmailAlreadyInUseError } from '../../errors/index.js';
 import { createUserSchema } from '../../schemas/user.js';
 import { badRequest, created, serverError } from '../helpers/index.js';
 import { ZodError } from 'zod';
@@ -19,9 +19,9 @@ export class CreateUserController {
             return created(createdUser);
         } catch (error) {
             if (error instanceof ZodError) {
-                return badRequest({
-                    message: error.errors[0].message,
-                });
+                const message =
+                    error.errors?.[0]?.message || 'Validation error';
+                return badRequest({ message });
             }
 
             if (error instanceof EmailAlreadyInUseError) {

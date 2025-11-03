@@ -1,6 +1,6 @@
-import { UserNotFoundError } from '../../errors/user';
+import { UserNotFoundError } from '../../errors/index.js';
 import { transaction } from '../../tests/index.js';
-import { GetTransactionsByUserIdController } from './get-transactions-by-user-id';
+import { GetTransactionsByUserIdController } from './get-transactions-by-user-id.js';
 import { faker } from '@faker-js/faker';
 
 describe('Get Transaction By User ID Controller', () => {

@@ -1,5 +1,5 @@
-import { PostgresCreateTransactionRepository } from './create-transaction';
-import { transaction, user } from '../../../tests';
+import { PostgresCreateTransactionRepository } from './create-transaction.js';
+import { transaction, user } from '../../../tests/index.js';
 import { prisma } from '../../../../prisma/prisma';
 import dayjs from 'dayjs';
 

@@ -1,5 +1,5 @@
-import { UnauthorizedError } from '../../errors';
-import { RefreshTokenUseCase } from './refresh-token';
+import { UnauthorizedError } from '../../errors/index.js';
+import { RefreshTokenUseCase } from './refresh-token.js';
 
 describe('RefreshTokenUseCase', () => {
     class TokenVerifierAdapter {

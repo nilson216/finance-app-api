@@ -1,8 +1,8 @@
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library.js';
 import { prisma } from '../../../../prisma/prisma';
-import { user } from '../../../tests';
-import { PostgresDeleteUserRepository } from './delete-user';
-import { UserNotFoundError } from '../../../errors';
+import { user } from '../../../tests/index.js';
+import { PostgresDeleteUserRepository } from './delete-user.js';
+import { UserNotFoundError } from '../../../errors/index.js';
 
 describe('PostgresDeleteUserRepository', () => {
     it('should delete a user on db', async () => {

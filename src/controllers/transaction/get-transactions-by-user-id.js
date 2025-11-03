@@ -1,5 +1,5 @@
 import { ZodError } from 'zod';
-import { UserNotFoundError } from '../../errors/user.js';
+import { UserNotFoundError } from '../../errors/index.js';
 import { getTransactionsByUserIdSchema } from '../../schemas/transaction.js';
 import {
     badRequest,
@@ -41,9 +41,9 @@ export class GetTransactionsByUserIdController {
             }
 
             if (error instanceof ZodError) {
-                return badRequest({
-                    message: error.errors[0].message,
-                });
+                const message =
+                    error.errors?.[0]?.message || 'Validation error';
+                return badRequest({ message });
             }
             return serverError();
         }

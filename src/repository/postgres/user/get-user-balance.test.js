@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { prisma } from '../../../../prisma/prisma';
-import { user as fakeUser } from '../../../tests';
-import { PostgresGetUserBalanceRepository } from './get-user-balance';
+import { user as fakeUser } from '../../../tests/index.js';
+import { PostgresGetUserBalanceRepository } from './get-user-balance.js';
 import { TransactionType } from '@prisma/client';
 
 describe('PostgresGetUserBalanceRepository', () => {

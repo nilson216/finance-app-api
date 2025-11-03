@@ -2,10 +2,10 @@ import { faker } from '@faker-js/faker';
 import dayjs from 'dayjs';
 import { TransactionType } from '@prisma/client';
 import { prisma } from '../../../../prisma/prisma';
-import { transaction, user } from '../../../tests';
-import { PostgresUpdateTransactionRepository } from './update-transaction';
+import { transaction, user } from '../../../tests/index.js';
+import { PostgresUpdateTransactionRepository } from './update-transaction.js';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library.js';
-import { TransactionNotFoundError } from '../../../errors';
+import { TransactionNotFoundError } from '../../../errors/index.js';
 
 describe('PostgresUpdateTransactionRepository', () => {
     it('should update a transaction on db', async () => {

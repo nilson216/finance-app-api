@@ -1,4 +1,4 @@
-import { CreateTransactionController } from './create-transaction';
+import { CreateTransactionController } from './create-transaction.js';
 import { transaction } from '../../tests/index.js';
 
 describe('Create Transaction Controller', () => {

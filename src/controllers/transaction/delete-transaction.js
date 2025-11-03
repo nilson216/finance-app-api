@@ -1,4 +1,4 @@
-import { TransactionNotFoundError } from '../../errors/transaction.js';
+import { TransactionNotFoundError } from '../../errors/index.js';
 import {
     checkIfIdIsValid,
     invalidIdResponse,

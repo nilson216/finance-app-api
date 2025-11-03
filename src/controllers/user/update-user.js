@@ -1,7 +1,7 @@
 import {
     EmailAlreadyInUseError,
     UserNotFoundError,
-} from '../../errors/user.js';
+} from '../../errors/index.js';
 import { updateUserSchema } from '../../schemas/user.js';
 import {
     checkIfIdIsValid,
@@ -40,9 +40,9 @@ export class UpdateUserController {
             return ok(updatedUser);
         } catch (error) {
             if (error instanceof ZodError) {
-                return badRequest({
-                    message: error.errors[0].message,
-                });
+                const message =
+                    error.errors?.[0]?.message || 'Validation error';
+                return badRequest({ message });
             }
 
             if (error instanceof EmailAlreadyInUseError) {

@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { prisma } from '../../../../prisma/prisma';
-import { user, transaction } from '../../../tests';
-import { PostgresGetTransactionsByUserIdRepository } from './get-transactions-by-user-id';
+import { user, transaction } from '../../../tests/index.js';
+import { PostgresGetTransactionsByUserIdRepository } from './get-transactions-by-user-id.js';
 
 describe('PostgresGetTransactionsByUserIdRepository', () => {
     const from = '2024-01-01';

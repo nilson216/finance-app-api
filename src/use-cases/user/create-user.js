@@ -1,4 +1,4 @@
-import { EmailAlreadyInUseError } from '../../errors/user.js';
+import { EmailAlreadyInUseError } from '../../errors/index.js';
 
 export class CreateUserUseCase {
     constructor(

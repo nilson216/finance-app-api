@@ -1,4 +1,4 @@
-import { UserNotFoundError } from '../../errors/user.js';
+import { UserNotFoundError } from '../../errors/index.js';
 import { createTransactionSchema } from '../../schemas/transaction.js';
 import {
     badRequest,
@@ -25,9 +25,9 @@ export class CreateTransactionController {
             return created(transaction);
         } catch (error) {
             if (error instanceof ZodError) {
-                return badRequest({
-                    message: error.errors[0].message,
-                });
+                const message =
+                    error.errors?.[0]?.message || 'Validation error';
+                return badRequest({ message });
             }
 
             if (error instanceof UserNotFoundError) {
