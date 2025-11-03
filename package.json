@@ -12,7 +12,8 @@
         "start:dev": "node --watch index.js",
         "start": "node index.js",
         "eslint:check": "eslint src",
-        "prettier:check": "prettier --check src"
+        "prettier:check": "prettier --check src",
+        "prepare": "husky"
     },
     "keywords": [],
     "author": "",
