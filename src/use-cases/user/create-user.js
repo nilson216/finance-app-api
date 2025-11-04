@@ -1,6 +1,6 @@
 import { EmailAlreadyInUseError } from '../../errors/index.js';
 
-export class CreateUserUseCase {
+export class CreateUserUseCase { //injection dependencies: The use case create to the dependencies, it receives them promptly, which makes it easier to test and exchange implementations.
     constructor(
         getUserByEmailRepository,
         createUserRepository,
@@ -8,11 +8,11 @@ export class CreateUserUseCase {
         idGeneratorAdapter,
         tokensGeneratorAdapter,
     ) {
-        this.getUserByEmailRepository = getUserByEmailRepository;
-        this.createUserRepository = createUserRepository;
-        this.passwordHasherAdapter = passwordHasherAdapter;
-        this.idGeneratorAdapter = idGeneratorAdapter;
-        this.tokensGeneratorAdapter = tokensGeneratorAdapter;
+        this.getUserByEmailRepository = getUserByEmailRepository; //acess db and found a user by email
+        this.createUserRepository = createUserRepository; //access db and create a user
+        this.passwordHasherAdapter = passwordHasherAdapter; //hash user password
+        this.idGeneratorAdapter = idGeneratorAdapter; //generate user id
+        this.tokensGeneratorAdapter = tokensGeneratorAdapter; //generate user tokens
     }
 
     async execute(createUserParams) {
