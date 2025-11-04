@@ -1,7 +1,4 @@
-import {
-    InvalidPasswordError,
-    UserNotFoundError,
-} from '../../errors/index.js';
+import { InvalidPasswordError, UserNotFoundError } from '../../errors/index.js';
 import { user } from '../../tests/index.js';
 import { LoginUserController } from './login-user.js';
 
