@@ -1,6 +1,7 @@
 import { EmailAlreadyInUseError } from '../../errors/index.js';
 
-export class CreateUserUseCase { //injection dependencies: The use case create to the dependencies, it receives them promptly, which makes it easier to test and exchange implementations.
+export class CreateUserUseCase {
+    //injection dependencies: The use case create to the dependencies, it receives them promptly, which makes it easier to test and exchange implementations.
     constructor(
         getUserByEmailRepository,
         createUserRepository,
